@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<h1>Freightage</h1>
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.route, required=True) }}
+    {{ render_field(form.ship, required=True) }}
+    {{ render_field(form.cargo, required=True) }}
+    {{ render_field(form.loading_date, placeholder="YYYY-MM-DD hh:mm:ss") }}
+    <p>{{ form.submit() }}</p>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Declaration Number</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Ship</th>
+        <th>Cargo</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for freightage in freightages %}
+    <tr>
+        <td><a href="{{ url_for('get_one_route', route_id=freightage.route.route_id) }}">{{ freightage.route.declaration_num }}</a></td>
+        <td>
+            <div>
+                <a href="{{ url_for('get_one_port', port_id=freightage.route.from_port.port_id) }}">
+                    {{ freightage.route.from_port.name + " (" + freightage.route.from_port.country + ")" }}
+                </a>
+            </div>
+            <div>{{ freightage.route.departure_date }}</div>
+        </td>
+        <td>
+            <div class="port">
+                <a href="{{ url_for('get_one_port', port_id=freightage.route.to_port.port_id) }}">
+                    {{ freightage.route.to_port.name + " (" + freightage.route.to_port.country + ")" }}
+                </a>
+            </div>
+            <div class="date">{{ freightage.route.arrival_date }}</div>
+        </td>
+        <td><a href="{{ url_for('get_one_ship', ship_id=freightage.ship.ship_id) }}">{{ freightage.ship.name }}</a></td>
+        <td><a href="{{ url_for('get_one_cargo', cargo_id=freightage.cargo.cargo_id) }}">{{ freightage.cargo.reg_num }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

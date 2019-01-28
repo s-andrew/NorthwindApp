@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Ships</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Registration Number</th>
+        <th>Name</th>
+        <th>Capasity</th>
+        <th>Launching date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ship in ships %}
+    <tr>
+        <td>{{ ship.reg_num }}</td>
+        <td><a href="{{ url_for('get_one_ship', ship_id=ship.ship_id) }}">{{ ship.name }}</a></td>
+        <td>{{ ship.capasity }}</td>
+        <td>{{ ship.launching_date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

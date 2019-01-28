@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<h1>Cargos</h1>
+
+<form action="" method="POST">
+    <h2>Create new cargo</h2>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.reg_num, required=True) }}
+    {{ render_field(form.value, required=True) }}
+    {{ render_field(form.weight, required=True) }}
+    {{ render_field(form.shelf_life, required=True, placeholder="YYYY-MM-DD hh:mm:ss") }}
+    <p>{{ form.submit() }}</p>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Registration Number</th>
+        <th>Value</th>
+        <th>Weight</th>
+        <th>Shelf Life</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for cargo in cargos %}
+    <tr>
+        <td><a href="{{ url_for('get_one_cargo', cargo_id=cargo.cargo_id) }}">{{ cargo.reg_num }}</a></td>
+        <td>{{ cargo.value }}</td>
+        <td>{{ cargo.weight }}</td>
+        <td>{{ cargo.shelf_life }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

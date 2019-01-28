@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {% if title %}
+                {{ title }}
+            {% else %}
+                Dock Management
+            {% endif %}
+        {% endblock %}
+    </title>
+    <style>
+        * {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        }
+        .mainHeader{
+            border-bottom: 2px solid #1a1b1c;
+        }
+        .labelHeader{
+            padding-right: 120px;
+            border-right: 2px solid #1a1b1c;
+        }
+        .mainHeader a{
+            text-decoration: none;
+        }
+        .labelHeader, .mainHeader > nav, .mainHeader > nav > ul, .mainHeader > nav > ul > li{
+            display: inline;
+        }
+        .mainHeader > nav > ul{
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="mainHeader">
+        <div class="labelHeader">Dock Management</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home_page') }}">Home</a></li>
+                <li><a href="{{ url_for('get_all_ships') }}">Ships</a></li>
+                <li><a href="{{ url_for('get_all_ports') }}">Ports</a></li>
+                <li><a href="{{ url_for('get_all_cargos') }}">Cargos</a></li>
+                <li><a href="/routes">Routes</a></li>
+                <li><a href="/freightage">Freightage</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

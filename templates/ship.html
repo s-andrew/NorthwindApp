@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ ship.name }}</h1>
+<h2>Info</h2>
+<table>
+    <tbody>
+    <tr>
+        <td style="font-weight: bold;">Registration Number</td>
+        <td>{{ ship.reg_num }}</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Name</td>
+        <td>{{ ship.name }}</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Capasity</td>
+        <td>{{ ship.capasity }}</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Launching date</td>
+        <td>{{ ship.launching_date }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Freightage</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Declaration Number</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Cargo</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for freightage in freightages %}
+    <tr>
+        <td><a href="#">{{ freightage.route.declaration_num }}</a></td>
+        <td>
+            <div>{{ freightage.route.from_port.name + " (" + freightage.route.from_port.country + ")" }}</div>
+            <div>{{ freightage.route.departure_date }}</div>
+        </td>
+        <td>
+            <div class="port">{{ freightage.route.to_port.name + " (" + freightage.route.to_port.country + ")" }}</div>
+            <div class="date">{{ freightage.route.arrival_date }}</div>
+        </td>
+        <td><a href="#">{{ freightage.cargo.reg_num }}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

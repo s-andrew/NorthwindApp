@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+{% block content %}
+<h1>Routes</h1>
+
+<form action="" method="POST">
+    <h2>Create new route</h2>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.from_port, required=True) }}
+    {{ render_field(form.to_port, required=True) }}
+    {{ render_field(form.declaration_num, required=True) }}
+    {{ render_field(form.departure_date, placeholder="YYYY-MM-DD hh:mm:ss") }}
+    {{ render_field(form.arrival_date, placeholder="YYYY-MM-DD hh:mm:ss") }}
+    <p>{{ form.submit() }}</p>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Declaration Number</th>
+        <th>From</th>
+        <th>To</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for route in routes %}
+    <tr>
+        <td>{{ route.declaration_num }}</td>
+        <td>
+            <div>{{ route.from_port.name + " (" + route.from_port.country + ")" }}</div>
+            <div>{{ route.departure_date }}</div>
+        </td>
+        <td>
+            <div class="port">{{ route.to_port.name + " (" + route.to_port.country + ")" }}</div>
+            <div class="date">{{ route.arrival_date }}</div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
